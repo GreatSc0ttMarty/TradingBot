@@ -5,16 +5,33 @@ api = ta.api
 class Orders:
 
     def buy(stock):
+        try:
+            api.submit_order(
+                symbol=stock,
+                qty=1,
+                side='buy',
+                type='market',
+                time_in_force='gtc'
+            )
+        except:
+            print(f"Unable to place order for {stock} at this time!")
 
-        api.submit_order(
-            symbol=stock,
-            qty=1,
-            side='buy',
-            type='market',
-            time_in_force='gtc'
-        )
 
-    def limited_buy(stock, limit):
+    def sell(stock):
+        try:
+            api.submit_order(
+                symbol=stock,
+                qty=1,
+                side='sell',
+                type='market',
+                time_in_force='opg',
+            )
+
+        except:
+            print(f"Unable to sell {stock} at this time!")
+        
+
+    def limite_sell(stock, limit):
 
         api.submit_order(
             symbol=stock,
@@ -24,5 +41,17 @@ class Orders:
             time_in_force='opg',
             limit_price=limit
         )
-        
-Orders.order("GOOG")
+
+    def view_current_orders(position, limit=500):
+        api.list_orders(
+            status=position,
+            limit=limit,
+            nested=True
+
+        )
+
+
+# TEST AREA
+print(Orders.view_current_orders(all))
+# Orders.buy("GOOG")
+# Orders.sell("GOOG")
