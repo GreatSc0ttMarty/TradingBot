@@ -1,5 +1,6 @@
 import trading_auth as ta
 
+
 api = ta.api
 
 class Orders:
@@ -13,6 +14,7 @@ class Orders:
                 type='market',
                 time_in_force='gtc'
             )
+            print(f"Your order for {stock} has been executed.")
         except:
             print(f"Unable to place order for {stock} at this time!")
 
@@ -26,7 +28,6 @@ class Orders:
                 type='market',
                 time_in_force='opg',
             )
-
         except:
             print(f"Unable to sell {stock} at this time!")
         
@@ -50,8 +51,8 @@ class Orders:
 
         )
 
+    def list_positions():
+        return api.list_positions()
 
-# TEST AREA
-print(Orders.view_current_orders(all))
-# Orders.buy("GOOG")
-# Orders.sell("GOOG")
+    def list_orders():
+        return api.list_orders()
